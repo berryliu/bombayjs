@@ -46,8 +46,7 @@
     "typescript": "^3.6.2"
   },
   "dependencies": {
-    "tslib": "^1.9.3",
-    "ua-device": "^0.1.10"
+    "tslib": "^1.9.3"
   },
   "husky": {
     "hooks": {

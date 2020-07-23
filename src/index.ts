@@ -2,28 +2,16 @@ import { Config, setConfig } from './config';
 import {
   handleErr,
   handleVueErr,
-  handlePv,
-  handlePerf,
   handleHashchange,
   handleHistorystatechange,
   handleClick,
-  handleBlur,
-  handleResource,
-  handleSum,
-  handleAvg,
-  handleMsg,
-  handleHealth,
   handleApi,
   handleStayTime,
   handleCustomizeReport,
   setPage,
-  listenMessageListener,
-  listenCircleListener,
-  removeCircleListener,
 } from './handlers';
 import { on, off, parseHash } from './utils/tools';
-import { hackState, hackConsole, hackhook } from './hack';
-import { setGlobalPage, setGlobalSid, setGlobalHealth, GlobalVal } from './config/global';
+import { hackState, hackhook } from './hack';
 
 export default class Bombay {
   constructor(options, fn) {
@@ -46,24 +34,14 @@ export default class Bombay {
       : location.pathname.toLowerCase();
     setPage(page, true);
 
-    Config.isPage && this.sendPerf();
-
     Config.enableSPA && this.addListenRouterChange();
     Config.isError && this.addListenJs();
     Config.isAjax && this.addListenAjax();
-    Config.isRecord && this.addRrweb();
     // 行为是一个页面内的操作
     Config.isBehavior && this.addListenBehavior();
-    Config.isResource && this.sendResource();
     // 绑定全局变量
     window.__bb = this;
     this.addListenUnload();
-
-    // 监听message
-    listenMessageListener();
-    if (GlobalVal.circle) {
-      listenCircleListener();
-    }
   }
 
   handleCustomizeReport(customizeMessage) {
@@ -82,34 +60,17 @@ export default class Bombay {
     setConfig(config);
   }
 
-  sendPerf() {
-    handlePerf();
-  }
-
-  // 发送资源
-  sendResource() {
-    'complete' === window.document.readyState ? handleResource() : this.addListenResource();
-  }
-
-  // 监听资源
-  addListenResource() {
-    on('load', handleResource);
-  }
-
   // 监听行为
   addListenBehavior() {
-    hackConsole();
     Config.behavior.click && this.addListenClick();
   }
 
   // 监听click
   addListenClick() {
     on('click', handleClick); // 非输入框点击，会过滤掉点击输入框
-    on('blur', handleBlur); // 输入框失焦
 
     if (Config.isCountStayTime) {
       on('click', handleStayTime); // 非输入框点击，会过滤掉点击输入框
-      on('blur', handleStayTime); // 输入框失焦
     }
   }
 
@@ -142,11 +103,8 @@ export default class Bombay {
 
   // beforeunload
   addListenUnload() {
-    on('beforeunload', handleHealth);
     this.destroy();
   }
-
-  addRrweb() {}
 
   // 移除路由
   removeListenRouterChange() {
@@ -159,41 +117,15 @@ export default class Bombay {
     off('unhandledrejection', handleErr);
   }
 
-  // 监听资源
-  removeListenResource() {
-    off('beforeunload', handleHealth);
-  }
-
   removeListenAjax() {}
 
-  removeListenUnload() {
-    off('load', handleResource);
-  }
-
-  removeRrweb() {}
-
-  sum(key: string, val: number) {
-    handleSum(key, val);
-  }
-
-  avg(key: string, val: number) {
-    handleAvg(key, val);
-  }
-
-  msg(key: string) {
-    handleMsg(key);
-  }
-
   api(api, success, time, code, msg) {
-    handleApi(api, success, time, code, msg, Date.now());
+    handleApi(api, success, time, code, msg);
   }
 
   destroy() {
     Config.enableSPA && this.removeListenRouterChange();
     Config.isError && this.removeListenJs();
     Config.isAjax && this.removeListenAjax();
-    Config.isRecord && this.removeRrweb();
-    Config.isResource && this.removeListenResource();
-    this.removeListenResource();
   }
 }

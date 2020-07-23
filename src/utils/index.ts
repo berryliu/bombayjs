@@ -1,20 +1,14 @@
 import { Config } from '../config';
-import { randomString, parseHash } from './tools';
+import { randomString } from './tools';
 import { GlobalVal } from '../config/global';
 import { version } from '../../package.json';
-import UA from 'ua-device';
 
 // 获取公共的上传参数
 export function getCommonMsg() {
-  const device = getDeviceString();
-
-  const deviceInfo = getDeviceInfo();
   let u = (navigator as any).connection;
   let data: CommonMsg = {
-    t: '',
     page: getPage(),
     hash: getHash(),
-    times: 1,
     v: Config.appVersion,
     token: Config.token,
     e: Config.environment,
@@ -24,16 +18,11 @@ export function getCommonMsg() {
     sr: screen.width + 'x' + screen.height,
     vp: getScreen(),
     ct: u ? u.effectiveType : '',
-    device,
     ul: getLang(),
     _v: `${version}`,
     o: location.href,
-    deviceBrowser: JSON.stringify(deviceInfo.browser || {}),
-    deviceModel: JSON.stringify(deviceInfo.device || {}),
-    deviceEngine: JSON.stringify(deviceInfo.deviceEngine || {}),
-    deviceOs: JSON.stringify(deviceInfo.os || {}),
+    ua: getDeviceString(),
     user: JSON.stringify(Config.user),
-    needPushtoKafaka: Config.needPushtoKafaka,
   };
   return data;
 }
@@ -47,10 +36,6 @@ function getDeviceString(): string {
   return navigator.userAgent;
 }
 
-function getDeviceInfo(): any {
-  return new UA(window.navigator.userAgent) || {};
-}
-
 // 获取页面
 function getPage(): string {
   if (GlobalVal.page) return GlobalVal.page;
@@ -60,6 +45,7 @@ function getPage(): string {
 }
 
 // 获取uid
+// todo rename key
 function getUid(): string {
   let uid = localStorage.getItem('bombay_uid') || '';
   if (!uid) {
@@ -71,7 +57,7 @@ function getUid(): string {
 
 // 获取浏览器默认语言
 function getLang() {
-  var lang = navigator.language || (navigator as any).userLanguage; //常规浏览器语言和IE浏览器
+  let lang = navigator.language || (navigator as any).userLanguage; //常规浏览器语言和IE浏览器
   lang = lang.substr(0, 2); //截取lang前2位字符
   return lang;
 }

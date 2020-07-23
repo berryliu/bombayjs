@@ -8,18 +8,12 @@ export let Config = {
   appVersion: '1.0.0',
   // 环境
   environment: 'production',
-  // 脚本延迟上报时间
-  outtime: 300,
   // 开启单页面？
   enableSPA: true,
   // 是否自动上报pv
   autoSendPv: true,
-  // 是否上报页面性能数据
-  isPage: true,
   // 是否上报ajax性能数据
   isAjax: true,
-  // 是否上报页面资源数据
-  isResource: true,
   // 是否上报错误信息
   isError: true,
   // 是否录屏
@@ -28,20 +22,13 @@ export let Config = {
   isCountStayTime: true,
   // 是否上报行为
   isBehavior: true,
-  ignore: {
-    ignoreErrors: [],
-    ignoreUrls: [],
-    ignorePvs: ['404'],
-    ignoreResources: [],
-    ignoreApis: ['/api/v1/report/web', 'livereload.js?snipver=1', '/sockjs-node/info'],
-  },
+  // 是否自动上报行为
   behavior: {
-    console: ['log', 'error'], // 取值可以是"debug", "info", "warn", "log", "error"
     click: true,
   },
   // 最长上报数据长度
-  maxLength: 1000,
-  // 是否有Vue传入
+  maxLength: 100,
+  // 是否上报 Vue 的错误日志
   Vue: '',
   // 用户信息
   user: {},
@@ -49,20 +36,13 @@ export let Config = {
   offlineTime: 10 * 60 * 1000,
   // 多少时间上传一次用户停留
   sendMill: 30 * 1000,
-  // 是否需要推送相关信息到java后台的kafaka
-  needPushtoKafaka: false,
 };
 
 // 设置参数
 export function setConfig(options) {
-  const ignore = {
-    ...Config.ignore,
-    ...options.ignore,
-  };
   Config = {
     ...Config,
     ...options,
-    ignore,
   };
 }
 
