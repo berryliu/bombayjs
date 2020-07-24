@@ -1,5 +1,4 @@
 import { Config } from '../config';
-import { randomString } from './tools';
 import { GlobalVal } from '../config/global';
 import { version } from '../../package.json';
 
@@ -7,22 +6,22 @@ import { version } from '../../package.json';
 export function getCommonMsg() {
   let u = (navigator as any).connection;
   let data: CommonMsg = {
-    page: getPage(),
-    hash: getHash(),
+    t: '',
+    p: getPage(),
+    h: getHash(),
     v: Config.appVersion,
-    token: Config.token,
+    tk: Config.token,
     e: Config.environment,
-    begin: new Date().getTime(),
-    uid: getUid(),
+    uid: Config.userId,
     sid: GlobalVal.sid,
     sr: screen.width + 'x' + screen.height,
     vp: getScreen(),
     ct: u ? u.effectiveType : '',
     ul: getLang(),
-    _v: `${version}`,
     o: location.href,
     ua: getDeviceString(),
-    user: JSON.stringify(Config.user),
+    _v: `${version}`,
+    _t: new Date().getTime(),
   };
   return data;
 }
@@ -42,17 +41,6 @@ function getPage(): string {
   else {
     return location.pathname.toLowerCase();
   }
-}
-
-// 获取uid
-// todo rename key
-function getUid(): string {
-  let uid = localStorage.getItem('bombay_uid') || '';
-  if (!uid) {
-    uid = randomString();
-    localStorage.setItem('bombay_uid', uid);
-  }
-  return uid;
 }
 
 // 获取浏览器默认语言

@@ -18,7 +18,8 @@ export default class Bombay {
     this.init(options);
   }
 
-  init({ Vue, ...options }) {
+  // init({ Vue, ...options }) {
+  init(options) {
     // 没有token,则不监听任何事件
     if (options && !options.token) {
       throw Error('请输入一个token');
@@ -26,7 +27,7 @@ export default class Bombay {
     }
 
     // 监听Vue的错误
-    Vue && this.addListenVueError(Vue);
+    // Vue && this._addListenVueError(Vue);
 
     setConfig(options);
     let page = Config.enableSPA
@@ -34,39 +35,36 @@ export default class Bombay {
       : location.pathname.toLowerCase();
     setPage(page, true);
 
-    Config.enableSPA && this.addListenRouterChange();
-    Config.isError && this.addListenJs();
-    Config.isAjax && this.addListenAjax();
-    // 行为是一个页面内的操作
-    Config.isBehavior && this.addListenBehavior();
-    // 绑定全局变量
+    Config.enableSPA && this._addListenRouterChange();
+    Config.isError && this._addListenJs();
+    Config.isAjax && this._addListenAjax();
+    Config.isBehavior && this._addListenBehavior();
     window.__bb = this;
-    this.addListenUnload();
+    // this._addListenUnload();
   }
 
-  handleCustomizeReport(customizeMessage) {
+  report(message) {
     // 没有token,则不监听任何事件
     if (!Config.token) {
       throw Error('请输入一个合法token');
     }
-    handleCustomizeReport(customizeMessage);
+    handleCustomizeReport(message);
+  }
+
+  api(api, success, time, code, msg) {
+    handleApi(api, success, time, code, msg);
   }
 
   // 只支持更改用户的信息, 当获取到用户信息后，传入
-  setUserInfo(userInfo) {
+  setUserId(userId) {
     const config = {
-      user: userInfo,
+      userId: userId,
     };
     setConfig(config);
   }
 
-  // 监听行为
-  addListenBehavior() {
-    Config.behavior.click && this.addListenClick();
-  }
-
   // 监听click
-  addListenClick() {
+  _addListenClick() {
     on('click', handleClick); // 非输入框点击，会过滤掉点击输入框
 
     if (Config.isCountStayTime) {
@@ -75,21 +73,20 @@ export default class Bombay {
   }
 
   // 监听路由
-  addListenRouterChange() {
+  _addListenRouterChange() {
     hackState('pushState');
     hackState('replaceState');
     on('hashchange', handleHashchange);
     on('historystatechanged', handleHistorystatechange);
   }
 
-  addListenVueError(Vue) {
+  _addListenVueError(Vue) {
     Vue.config.errorHandler = function(error, vm, info) {
-      console.error(error);
       handleVueErr(error, vm, info);
     };
   }
 
-  addListenJs() {
+  _addListenJs() {
     // js错误或静态资源加载错误
     on('error', handleErr);
     //promise错误
@@ -97,35 +94,36 @@ export default class Bombay {
     // window.addEventListener('rejectionhandled', rejectionhandled, true);
   }
 
-  addListenAjax() {
+  _addListenAjax() {
     hackhook();
   }
 
+  // 监听行为
+  _addListenBehavior() {
+    Config.behavior.click && this._addListenClick();
+  }
+
   // beforeunload
-  addListenUnload() {
-    this.destroy();
+  _addListenUnload() {
+    this._destroy();
   }
 
   // 移除路由
-  removeListenRouterChange() {
+  _removeListenRouterChange() {
     off('hashchange', handleHashchange);
     off('historystatechanged', handleHistorystatechange);
   }
 
-  removeListenJs() {
+  _removeListenJs() {
     off('error', handleErr);
     off('unhandledrejection', handleErr);
   }
 
-  removeListenAjax() {}
+  _removeListenAjax() {}
 
-  api(api, success, time, code, msg) {
-    handleApi(api, success, time, code, msg);
-  }
-
-  destroy() {
-    Config.enableSPA && this.removeListenRouterChange();
-    Config.isError && this.removeListenJs();
-    Config.isAjax && this.removeListenAjax();
+  _destroy() {
+    Config.enableSPA && this._removeListenRouterChange();
+    Config.isError && this._removeListenJs();
+    Config.isAjax && this._removeListenAjax();
   }
 }

@@ -59,7 +59,7 @@ function getConfig({ outFile, format, mode }) {
         vue: 'Vue',
       },
       exports: 'named',
-      name: format === 'umd' ? 'bombay' : undefined,
+      name: format === 'umd' ? 'Bombay' : undefined,
     },
     plugins: [
       commonjs({

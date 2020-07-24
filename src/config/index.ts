@@ -10,14 +10,10 @@ export let Config = {
   environment: 'production',
   // 开启单页面？
   enableSPA: true,
-  // 是否自动上报pv
-  autoSendPv: true,
   // 是否上报ajax性能数据
   isAjax: true,
   // 是否上报错误信息
   isError: true,
-  // 是否录屏
-  isRecord: true,
   // 是否记录停留时长
   isCountStayTime: true,
   // 是否上报行为
@@ -31,7 +27,7 @@ export let Config = {
   // 是否上报 Vue 的错误日志
   Vue: '',
   // 用户信息
-  user: {},
+  userId: '',
   // 定义用户多少毫秒不操作认为不在线 (默认10分钟)
   offlineTime: 10 * 60 * 1000,
   // 多少时间上传一次用户停留

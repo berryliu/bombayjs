@@ -26,7 +26,7 @@
     "url": "git@github.com:122687220/bombayjs.git"
   },
   "scripts": {
-    "start": "cross-env TARGET=es-dev rollup -c -w",
+    "start": "cross-env TARGET=umd-dev rollup -c -w",
     "build": "rollup -c",
     "release": "bash scripts/release.sh"
   },

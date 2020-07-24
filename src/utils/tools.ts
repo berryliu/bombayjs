@@ -118,7 +118,7 @@ export const warn: any = (function() {
 })();
 
 // 自定义事件，并dispatch
-export const dispatchCustomEvent = function(e, t) {
+export const dispatchEvent = function(e, t) {
   let r;
   window.CustomEvent
     ? (r = new CustomEvent(e, {

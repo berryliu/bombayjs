@@ -5,19 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
-  <script src='../dist/bombay.js'></script>
-  <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
-</head>
-<body>
-  <img class='imga' id='iii' width='200' height='120' src='./dog.jpeg'/>
-  index
+  <script src='../dist/bombay.umd.js'></script>
   <script>
-    new Bombay({
+    new Bombay.default({
       enableSPA: true,
       token: '4hjrKWK1569405386362',
       reportUrl: 'http://127.0.0.1:7002/api/v1/report/web'
-    })
+    }).init()
   </script>
+  <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+</head>
+<body>
+  <img class='imga' id='iii' width='200' height='120' src='./fix.png'/>
+  index
   <script src='./a.js'></script>
   <!-- <script src='./b.js'></script> -->
   <script>
@@ -43,10 +43,10 @@
 // {
 // return Promise.reject('Hello!');
 // }
- 
-    
+
+
 //     var r = foo();
- 
+
 //     setTimeout(() =>
 //     {
 //     r.catch(e =>{});
@@ -56,7 +56,7 @@
   <button id="#btn" onclick="C()">aaa</button>
   <input class='name'/>
   <textarea class='ta'></textarea>
-  
+
   <script>
       fetch('http://localhost:5000/example/zan1')
 
@@ -88,7 +88,7 @@
     }
   </script>
   <script>
-    
+
   </script>
 </body>
 </html>

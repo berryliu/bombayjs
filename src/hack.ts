@@ -1,4 +1,4 @@
-import { parseUrl, fnToString, warn, dispatchCustomEvent, parseHash } from './utils/tools';
+import { parseUrl, fnToString, warn, dispatchEvent, parseHash } from './utils/tools';
 import { handleApi, setPage } from './handlers';
 import { Config } from './config';
 
@@ -26,8 +26,8 @@ export function hackState(e: 'pushState' | 'replaceState') {
           g = l[1] && l[1].replace(/^\/?(.*)/, '$1'),
           v = h[1] && h[1].replace(/^\/?(.*)/, '$1');
         p !== d
-          ? dispatchCustomEvent('historystatechanged', d)
-          : g !== v && dispatchCustomEvent('historystatechanged', v);
+          ? dispatchEvent('historystatechanged', d)
+          : g !== v && dispatchEvent('historystatechanged', v);
       } catch (m) {
         warn('[retcode] error in ' + e + ': ' + m);
       }
