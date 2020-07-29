@@ -159,7 +159,6 @@ export function handleClick(event) {
   } catch (u) {
     target = '<unknown>';
   }
-  if (target.nodeName === 'INPUT' || target.nodeName === 'TEXTAREA') return;
   // 无标记不上报
   if (!getElBehaviorName(target)) return;
 

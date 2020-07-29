@@ -90,6 +90,7 @@ export const off = function(event, fn) {
 };
 
 export const parseHash = function(e: string) {
+  debugger;
   return (e ? parseUrl(e.replace(/^#\/?/, '')) : '') || '[index]';
 };
 

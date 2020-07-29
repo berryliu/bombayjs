@@ -8,87 +8,96 @@
   <script src='../dist/bombay.umd.js'></script>
   <script>
     new Bombay.default({
-      enableSPA: true,
       token: '4hjrKWK1569405386362',
-      reportUrl: 'http://127.0.0.1:7002/api/v1/report/web'
-    }).init()
+      reportUrl: 'http://127.0.0.1:8080/report',
+      enableSPA: false,
+    });
   </script>
   <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
 </head>
 <body>
-  <img class='imga' id='iii' width='200' height='120' src='./fix.png'/>
-  index
-  <script src='./a.js'></script>
-  <!-- <script src='./b.js'></script> -->
-  <script>
-    // console.log(b)
-    function A () {
-      B()
-    }
+<img class='imga' id='iii' width='200' height='120' src='./fix.png'/>
+index
+<script src='./a.js'></script>
+<!-- <script src='./b.js'></script> -->
+<script>
+  // console.log(b)
+  function A () {
+    B();
+  }
 
-    function B() {
-      C()
-    }
+  function B () {
+    C();
+  }
 
-    function C() {
-      console.log(c)
-    }
+  function C () {
+    console.log(c);
+  }
 
-    // A()
+  // A()
 
-    // setTimeout(()=> {
-    //   console.log(a)
-    // },1000)
-//     function foo()
-// {
-// return Promise.reject('Hello!');
-// }
+  // setTimeout(()=> {
+  //   console.log(a)
+  // },1000)
+  //     function foo()
+  // {
+  // return Promise.reject('Hello!');
+  // }
 
+  //     var r = foo();
 
-//     var r = foo();
+  //     setTimeout(() =>
+  //     {
+  //     r.catch(e =>{});
+  //     }, 1000);
+</script>
+<!-- <a href='#a'>a</a> -->
+<button id="#btn1" onclick="C()">aaa</button>
+<button id="#btn2" b-name="法第四" b-msg="/\/\$$$&^&&">bbb</button>
+<button id="#btn3" onclick="D()">bbb</button>
+<input class='name'/>
+<textarea class='ta'></textarea>
 
-//     setTimeout(() =>
-//     {
-//     r.catch(e =>{});
-//     }, 1000);
-  </script>
-  <!-- <a href='#a'>a</a> -->
-  <button id="#btn" onclick="C()">aaa</button>
-  <input class='name'/>
-  <textarea class='ta'></textarea>
+<script>
+  fetch('http://localhost:5000/example/zan1');
 
-  <script>
-      fetch('http://localhost:5000/example/zan1')
+  function D () {
+    window.__bb.report({
+      type: 'custommmmm',
+      name: '发的深刻理解',
+      msg: '发的深刻理解离开家&#$%@#__../]\\\\',
+    });
+  }
 
-    function C() {
-      location.href='#a'
-      // let stateObj = {
-      //   foo: "bar",
-      //   };
+  function C () {
+    location.href = '#a';
+    // let stateObj = {
+    //   foo: "bar",
+    //   };
 
-      //   history.pushState(stateObj, "page 2", "bar.html");
-      // console.log('a', 'b')
-      // $.ajax({
-      //   url: 'http://localhost:5000/example/zan'
-      // });
-      // $.ajax({
-      //   type: 'POST',
-      //   contentType: 'application/json',
-      //   url: 'http://sitm.igola.com/web-gateway/api-data-service/data/find-hot',
-      //   data: JSON.stringify({"lang":"ZH","timestamp":1569225444068}),
-      //   dataType: 'json'
-      // });
-      // $.post('http://sitm.igola.com/web-gateway/api-data-service/data/find-hot',{"lang":"ZH","timestamp":1569225444068});
-      // __bb.msg('A::a');
-      // __bb.sum('A::b');
-      // __bb.sum('A::c');
-      // __bb.sum('B::a');
-      // __bb.sum('B::b');
-      // __bb.sum('B::c');
-    }
-  </script>
-  <script>
+    //   history.pushState(stateObj, "page 2", "bar.html");
+    // console.log('a', 'b')
+    // $.ajax({
+    //   url: 'http://localhost:5000/example/zan'
+    // });
+    // $.ajax({
+    //   type: 'POST',
+    //   contentType: 'application/json',
+    //   url: 'http://sitm.igola.com/web-gateway/api-data-service/data/find-hot',
+    //   data: JSON.stringify({"lang":"ZH","timestamp":1569225444068}),
+    //   dataType: 'json'
+    // });
+    // $.post('http://sitm.igola.com/web-gateway/api-data-service/data/find-hot',{"lang":"ZH","timestamp":1569225444068});
+    // __bb.msg('A::a');
+    // __bb.sum('A::b');
+    // __bb.sum('A::c');
+    // __bb.sum('B::a');
+    // __bb.sum('B::b');
+    // __bb.sum('B::c');
+  }
+</script>
+<script>
 
-  </script>
+</script>
 </body>
 </html>

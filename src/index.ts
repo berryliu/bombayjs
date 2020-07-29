@@ -15,32 +15,7 @@ import { hackState, hackhook } from './hack';
 
 export default class Bombay {
   constructor(options, fn) {
-    this.init(options);
-  }
-
-  // init({ Vue, ...options }) {
-  init(options) {
-    // 没有token,则不监听任何事件
-    if (options && !options.token) {
-      throw Error('请输入一个token');
-      return;
-    }
-
-    // 监听Vue的错误
-    // Vue && this._addListenVueError(Vue);
-
-    setConfig(options);
-    let page = Config.enableSPA
-      ? parseHash(location.hash.toLowerCase())
-      : location.pathname.toLowerCase();
-    setPage(page, true);
-
-    Config.enableSPA && this._addListenRouterChange();
-    Config.isError && this._addListenJs();
-    Config.isAjax && this._addListenAjax();
-    Config.isBehavior && this._addListenBehavior();
-    window.__bb = this;
-    // this._addListenUnload();
+    this._init(options);
   }
 
   report(message) {
@@ -61,6 +36,37 @@ export default class Bombay {
       userId: userId,
     };
     setConfig(config);
+  }
+
+  setVue(vue) {
+    if (vue) {
+      const config = {
+        Vue: vue,
+      };
+      setConfig(config);
+      this._addListenVueError(vue);
+    }
+  }
+
+  _init(options) {
+    // 没有token,则不监听任何事件
+    if (options && !options.token) {
+      throw Error('请输入一个token');
+      return;
+    }
+
+    setConfig(options);
+    let page = Config.enableSPA
+      ? parseHash(location.hash.toLowerCase())
+      : location.pathname.toLowerCase();
+    setPage(page, true);
+
+    Config.enableSPA && this._addListenRouterChange();
+    Config.isError && this._addListenJs();
+    Config.isAjax && this._addListenAjax();
+    Config.isBehavior && this._addListenBehavior();
+    window.__bb = this;
+    // this._addListenUnload();
   }
 
   // 监听click
@@ -86,6 +92,7 @@ export default class Bombay {
     };
   }
 
+  // 监听错误
   _addListenJs() {
     // js错误或静态资源加载错误
     on('error', handleErr);
@@ -94,6 +101,7 @@ export default class Bombay {
     // window.addEventListener('rejectionhandled', rejectionhandled, true);
   }
 
+  // 监听请求
   _addListenAjax() {
     hackhook();
   }
@@ -105,7 +113,7 @@ export default class Bombay {
 
   // beforeunload
   _addListenUnload() {
-    this._destroy();
+    off('beforeunload', this._destroy);
   }
 
   // 移除路由
@@ -114,6 +122,7 @@ export default class Bombay {
     off('historystatechanged', handleHistorystatechange);
   }
 
+  // 移除错误
   _removeListenJs() {
     off('error', handleErr);
     off('unhandledrejection', handleErr);
@@ -122,6 +131,7 @@ export default class Bombay {
   _removeListenAjax() {}
 
   _destroy() {
+    debugger;
     Config.enableSPA && this._removeListenRouterChange();
     Config.isError && this._removeListenJs();
     Config.isAjax && this._removeListenAjax();
