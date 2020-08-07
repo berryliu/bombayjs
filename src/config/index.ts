@@ -1,7 +1,7 @@
 // 默认参数
 export let Config = {
   // 上报地址
-  reportUrl: 'http://localhost:7002',
+  reportUrl: 'http://10.224.16.19/log.gif',
   // 提交参数
   token: '',
   // app版本
