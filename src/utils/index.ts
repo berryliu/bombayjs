@@ -14,6 +14,7 @@ export function getCommonMsg() {
     e: Config.environment,
     uid: Config.userId,
     sid: GlobalVal.sid,
+    aid: '',
     sr: screen.width + 'x' + screen.height,
     vp: getScreen(),
     ct: u ? u.effectiveType : '',

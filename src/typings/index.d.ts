@@ -23,6 +23,7 @@ interface CommonMsg {
   vp: string; // view 分辨率
   uid: string; // user id
   sid: string; // session id
+  aid: string; // 打开应用的 hash 值 application id
   ct: string; // 网络
   ul: string; // 语言 language
   o: string; // 原始url origin url
@@ -76,7 +77,8 @@ interface behaviorMsg extends CommonMsg {
 
 // 自定事件上报
 interface customMsg extends CommonMsg {
-  c_t: string; // 类型 type
-  c_n: string; // 名称 name
-  c_m: string; // 信息 msg
+  c_i: string; // id，平台自动生成
+  c_n: string; // 名称 name，为空不会上报，保留字段
+  c_t: string; // 类型 type，为空不会上报，保留字段
+  c_m: string; // 信息 message
 }
